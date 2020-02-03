@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Exchange Calculator</string>
+    <color name="EERIE_BLACK">#2E2E2E</color>
 </resources>
