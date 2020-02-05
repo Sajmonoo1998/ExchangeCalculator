@@ -247,14 +247,14 @@
                 android:layout_width="76dp"
                 android:layout_height="78dp"
                 android:visibility="visible"
-                app:srcCompat="@drawable/poland_48px" />
+                app:srcCompat="@drawable/great_britain_48px" />
 
             <TextView
                 android:id="@+id/thirdCurrencyMark"
                 android:layout_width="wrap_content"
                 android:layout_height="78dp"
                 android:gravity="center"
-                android:text="PLN"
+                android:text="GPB"
                 android:textSize="30sp" />
 
             <ImageButton
@@ -271,10 +271,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:cursorVisible="false"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                android:visibility="visible" />
+                android:text="1112"
+                android:visibility="visible"
+                android:cursorVisible="false"
+                />
 
         </LinearLayout>
     </LinearLayout>
