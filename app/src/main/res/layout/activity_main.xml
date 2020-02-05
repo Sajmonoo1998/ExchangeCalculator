@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button17"
+                android:id="@+id/butt1"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -34,7 +34,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button16"
+                android:id="@+id/butt4"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -43,7 +43,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button15"
+                android:id="@+id/butt7"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -52,7 +52,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/buttDot"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -70,7 +70,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button23"
+                android:id="@+id/butt2"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -79,7 +79,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button22"
+                android:id="@+id/butt5"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -88,7 +88,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button21"
+                android:id="@+id/butt8"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -97,7 +97,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button8"
+                android:id="@+id/butt0"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -114,7 +114,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button26"
+                android:id="@+id/butt3"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -123,7 +123,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button25"
+                android:id="@+id/butto6"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -132,7 +132,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button24"
+                android:id="@+id/butt9"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -141,7 +141,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/butt00"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
@@ -171,7 +171,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button12"
+                android:id="@+id/buttDel"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -201,7 +201,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/buttRefresh"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="45dp"
                 android:layout_height="52dp"
@@ -211,7 +211,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/button28"
+                android:id="@+id/buttClear"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="47dp"
                 android:layout_height="167dp"
@@ -237,20 +237,20 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:id="@+id/thirdCurrencyInput"
+            android:id="@+id/LinearLayout11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/thirdFlag"
                 android:layout_width="76dp"
                 android:layout_height="78dp"
                 android:visibility="visible"
                 app:srcCompat="@drawable/great_britain_48px" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/thirdCurrencyMark"
                 android:layout_width="wrap_content"
                 android:layout_height="78dp"
                 android:gravity="center"
@@ -258,7 +258,7 @@
                 android:textSize="30sp" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/thirdUnfold"
                 android:layout_width="49dp"
                 android:layout_height="78dp"
                 android:background="#FFFFFF"
@@ -267,12 +267,14 @@
                 tools:layout_editor_absoluteY="182dp" />
 
             <EditText
-                android:id="@+id/thirdCurrency"
+                android:id="@+id/thirdCurrencyInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:text="1112"
+                android:visibility="visible" />
 
         </LinearLayout>
     </LinearLayout>
@@ -296,14 +298,14 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/secondFlag"
                 android:layout_width="76dp"
                 android:layout_height="78dp"
                 android:visibility="visible"
                 app:srcCompat="@drawable/flag_of_europe_48px" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/secondCurrencyMark"
                 android:layout_width="wrap_content"
                 android:layout_height="78dp"
                 android:gravity="center"
@@ -311,7 +313,7 @@
                 android:textSize="30sp" />
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/secondUnfold"
                 android:layout_width="47dp"
                 android:layout_height="match_parent"
                 android:background="#FFFFFF"
@@ -320,15 +322,16 @@
 
         <EditText
             android:id="@+id/secondCurrencyInput"
-            style="@android:style/Widget.DeviceDefault.EditText"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:visibility="visible" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -340,14 +343,14 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/imageView13"
+            android:id="@+id/firstFlag"
             android:layout_width="76dp"
             android:layout_height="78dp"
             android:visibility="visible"
             app:srcCompat="@drawable/denmark_48px" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/firstCurrencyMark"
             android:layout_width="wrap_content"
             android:layout_height="78dp"
             android:gravity="center"
@@ -355,7 +358,7 @@
             android:textSize="30sp" />
 
         <ImageButton
-            android:id="@+id/imageButton5"
+            android:id="@+id/firstUnfold"
             android:layout_width="47dp"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
@@ -363,24 +366,24 @@
 
         <EditText
             android:id="@+id/firstCurrencyInput"
-            style="@android:style/Widget.DeviceDefault.EditText"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_weight="0"
             android:ems="10"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:visibility="visible" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/currencyRelation"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="1DKK = 0.1337EUR"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="139dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
