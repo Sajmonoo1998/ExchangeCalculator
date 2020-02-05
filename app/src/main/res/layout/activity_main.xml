@@ -247,14 +247,14 @@
                 android:layout_width="76dp"
                 android:layout_height="78dp"
                 android:visibility="visible"
-                app:srcCompat="@drawable/great_britain_48px" />
+                app:srcCompat="@drawable/poland_48px" />
 
             <TextView
                 android:id="@+id/thirdCurrencyMark"
                 android:layout_width="wrap_content"
                 android:layout_height="78dp"
                 android:gravity="center"
-                android:text="GPB"
+                android:text="PLN"
                 android:textSize="30sp" />
 
             <ImageButton
@@ -271,12 +271,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:cursorVisible="false"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                android:text="1112"
-                android:visibility="visible"
-                android:cursorVisible="false"
-                />
+                android:maxLength="10"
+                android:visibility="visible" />
 
         </LinearLayout>
     </LinearLayout>
@@ -294,43 +293,39 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/secondFlag"
+            android:layout_width="76dp"
+            android:layout_height="78dp"
+            android:visibility="visible"
+            app:srcCompat="@drawable/flag_of_europe_48px" />
+
+        <TextView
+            android:id="@+id/secondCurrencyMark"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="78dp"
+            android:gravity="center"
+            android:text="EUR"
+            android:textSize="30sp" />
 
-            <ImageView
-                android:id="@+id/secondFlag"
-                android:layout_width="76dp"
-                android:layout_height="78dp"
-                android:visibility="visible"
-                app:srcCompat="@drawable/flag_of_europe_48px" />
-
-            <TextView
-                android:id="@+id/secondCurrencyMark"
-                android:layout_width="wrap_content"
-                android:layout_height="78dp"
-                android:gravity="center"
-                android:text="EUR"
-                android:textSize="30sp" />
-
-            <ImageButton
-                android:id="@+id/secondUnfold"
-                android:layout_width="47dp"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF"
-                app:srcCompat="@drawable/ic_expand_more_red_300_24dp" />
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/secondUnfold"
+            android:layout_width="47dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            app:srcCompat="@drawable/ic_expand_more_red_300_24dp" />
 
         <EditText
             android:id="@+id/secondCurrencyInput"
             android:layout_width="wrap_content"
-            android:layout_height="56dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:cursorVisible="false"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:visibility="visible"
-            android:cursorVisible="false"/>
+            android:maxLength="10"
+            android:visibility="visible" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -370,12 +365,13 @@
         <EditText
             android:id="@+id/firstCurrencyInput"
             android:layout_width="wrap_content"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0"
+            android:cursorVisible="false"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:visibility="visible"
-            android:cursorVisible="false"/>
+            android:maxLength="10"
+            android:visibility="visible" />
     </LinearLayout>
 
     <TextView
