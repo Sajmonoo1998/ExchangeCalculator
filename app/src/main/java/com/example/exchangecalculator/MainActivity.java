@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         output = calculateAndFormat(currentNumber,secondCurrencyValue);
         secondCurrencyInput.setText(output);
         //Calculating third currency while we insert numbers for the first one
-        thirdCurrencyValue = 0.12;
+        thirdCurrencyValue = 0.5688;
         output2 = calculateAndFormat(currentNumber,thirdCurrencyValue);
         thirdCurrencyInput.setText(output2);
         break;
@@ -202,18 +202,18 @@ public class MainActivity extends AppCompatActivity {
             //Calculating first currency while we insert numbers for the second one
             output = calculateAndFormat(currentNumber,firstCurrencyValue);
             firstCurrencyInput.setText(output);
-            thirdCurrencyValue = 1.11;
+            thirdCurrencyValue = 4.25;
             ////Calculating third currency while we insert numbers for the second one
             output2 = calculateAndFormat(currentNumber,thirdCurrencyValue);
             thirdCurrencyInput.setText(output2);
         break;
         case (R.id.thirdCurrencyInput):
             thirdCurrencyInput.setText(currentNumber);
-            firstCurrencyValue = 8.33;
+            firstCurrencyValue = 1.758;
             //Calculating third currency while we insert numbers for the first one
             output = calculateAndFormat(currentNumber,firstCurrencyValue);
             firstCurrencyInput.setText(output);
-            secondCurrencyValue = 0.897;
+            secondCurrencyValue = 0.2352;
             //Calculating third currency while we insert numbers for the second one
             output2 = calculateAndFormat(currentNumber,secondCurrencyValue);
             secondCurrencyInput.setText(output2);
