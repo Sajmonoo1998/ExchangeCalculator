@@ -4,11 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.io.Console;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -17,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     EditText firstCurrencyInput,secondCurrencyInput,thirdCurrencyInput;
     Button butt1,butt2,butt3,butt4,butt5,butt6,butt7,butt8,butt9,butt0,butt00,buttDot,buttDel,buttClear,buttRefresh;
     ArrayList<Button> buttList = new ArrayList<>();
+    ArrayList<EditText> editTextList = new ArrayList<>();
     String currentNumber = "";
     private static DecimalFormat df2 = new DecimalFormat("#.##");
     double firstCurrencyValue = 0;
@@ -24,16 +24,15 @@ public class MainActivity extends AppCompatActivity {
     double thirdCurrencyValue = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initParts();
+        init();
         secondCurrencyInput.requestFocus();
-        setButtonsFunctionality(buttList);
-
-
+        setFunctionality(buttList, editTextList);
     }
 
-    private void initParts() {
+    private void init() {
         firstCurrencyMark = findViewById(R.id.firstCurrencyMark);
         secondCurrencyMark = findViewById(R.id.secondCurrencyMark);
         thirdCurrencyMark = findViewById(R.id.thirdCurrencyMark);
@@ -42,27 +41,9 @@ public class MainActivity extends AppCompatActivity {
         firstCurrencyInput = findViewById(R.id.firstCurrencyInput);
         secondCurrencyInput = findViewById(R.id.secondCurrencyInput);
         thirdCurrencyInput = findViewById(R.id.thirdCurrencyInput);
-        firstCurrencyInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus && firstCurrencyInput.getText().length() != 0)
-                    currentNumber = firstCurrencyInput.getText().toString();
-            }
-        });
-        secondCurrencyInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus && firstCurrencyInput.getText().length() != 0)
-                    currentNumber = secondCurrencyInput.getText().toString();
-            }
-        });
-        thirdCurrencyInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus && firstCurrencyInput.getText().length() != 0)
-                    currentNumber = thirdCurrencyInput.getText().toString();
-            }
-        });
+        editTextList.add(firstCurrencyInput);
+        editTextList.add(secondCurrencyInput);
+        editTextList.add(thirdCurrencyInput);
         //
         butt1 = findViewById(R.id.butt1);
         butt2 = findViewById(R.id.butt2);
@@ -95,9 +76,12 @@ public class MainActivity extends AppCompatActivity {
         buttList.add(buttRefresh);
         buttList.add(buttDot);
     }
-    private void setButtonsFunctionality(ArrayList<Button> ab) {
+    private void setFunctionality(ArrayList<Button> ab, ArrayList<EditText> atv) {
         for(Button b: ab){
             setOperation(b);
+        }
+        for(EditText tv: atv){
+            setFocusListeners(tv);
         }
     }
 
@@ -108,6 +92,28 @@ public class MainActivity extends AppCompatActivity {
             return secondCurrencyInput;
         else
             return thirdCurrencyInput;
+    }
+    private void setFocusListeners(final EditText et){
+        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                switch (et.getId()){
+                    case(R.id.firstCurrencyInput):
+                    if(hasFocus && firstCurrencyInput.getText().length() != 0)
+                    currentNumber = firstCurrencyInput.getText().toString();
+                    break;
+                    case(R.id.secondCurrencyInput):
+                    if(hasFocus && secondCurrencyInput.getText().length() != 0)
+                    currentNumber = secondCurrencyInput.getText().toString();
+                    break;
+                    case(R.id.thirdCurrencyInput):
+                    if(hasFocus && thirdCurrencyInput.getText().length() != 0)
+                    currentNumber = thirdCurrencyInput.getText().toString();
+                }
+                et.setShowSoftInputOnFocus(false);
+
+            }
+        });
     }
     private void setOperation(final Button b) {
         b.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                         if (currentNumber.length() > 0) currentNumber += "00";
                         break;
                     case (R.id.buttDot):
-                        if (currentNumber.length() > 0) currentNumber += ".";
+                        if (currentNumber.length() > 0 && !currentNumber.contains(".")) currentNumber += ".";
                         break;
                     case (R.id.buttDel):
                         if (currentNumber.length() > 0) currentNumber = currentNumber.substring(0, currentNumber.length() - 1);
@@ -204,13 +210,13 @@ public class MainActivity extends AppCompatActivity {
         case (R.id.thirdCurrencyInput):
             thirdCurrencyInput.setText(currentNumber);
             firstCurrencyValue = 8.33;
-            //Calculating first currency while we insert numbers for the third one
+            //Calculating third currency while we insert numbers for the first one
             output = calculateAndFormat(currentNumber,firstCurrencyValue);
             firstCurrencyInput.setText(output);
             secondCurrencyValue = 0.897;
-            //Calculating second currency while we insert numbers for the third one
+            //Calculating third currency while we insert numbers for the second one
             output2 = calculateAndFormat(currentNumber,secondCurrencyValue);
-            thirdCurrencyInput.setText(output2);
+            secondCurrencyInput.setText(output2);
             break;
     }
     }

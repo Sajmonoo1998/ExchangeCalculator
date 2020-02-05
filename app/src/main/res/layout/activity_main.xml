@@ -274,7 +274,9 @@
                 android:ems="10"
                 android:inputType="numberDecimal"
                 android:text="1112"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:cursorVisible="false"
+                />
 
         </LinearLayout>
     </LinearLayout>
@@ -327,7 +329,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:cursorVisible="false"/>
     </LinearLayout>
 
     <LinearLayout
@@ -371,7 +374,8 @@
             android:layout_weight="0"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:cursorVisible="false"/>
     </LinearLayout>
 
     <TextView
