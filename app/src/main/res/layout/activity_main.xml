@@ -371,7 +371,8 @@
             android:ems="10"
             android:inputType="numberDecimal"
             android:maxLength="10"
-            android:visibility="visible" />
+            android:visibility="visible"
+            />
     </LinearLayout>
 
     <TextView
