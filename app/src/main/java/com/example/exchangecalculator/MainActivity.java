@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         init();
         requestCurrencies(base);
         setFunctionality(buttList, editTextList);
+        firstCurrencyInput.requestFocus();
     }
 
     private void requestCurrencies(String mark) {
@@ -206,22 +207,27 @@ public class MainActivity extends AppCompatActivity {
 
     private void showToast(String msg) {
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
         toast.show();
     }
 
     private void updateCurrencyRelation() {
-        if(base.equals("DKK")){
-            String value = calculateAndFormat(rates.getPLN().toString(),1.0);
-            currencyRelation.setText(String.format("1DKK = %s",value+"PLN"));
-        }
-        else if(base.equals(("EUR"))){
-            String value = calculateAndFormat(rates.getPLN().toString(),1.0);
-            currencyRelation.setText(String.format("1EUR = %s",value+"PLN"));
-        }
-        else if(base.equals(("PLN"))){
-            String value = calculateAndFormat(rates.getDKK().toString(),1.0);
-            currencyRelation.setText(String.format("1PLN = %s",value+"DKK"));
+        switch (base) {
+            case "DKK": {
+                String value = calculateAndFormat(rates.getPLN().toString(), 1.0);
+                currencyRelation.setText(String.format("1DKK = %s", value + "PLN"));
+                break;
+            }
+            case ("EUR"): {
+                String value = calculateAndFormat(rates.getPLN().toString(), 1.0);
+                currencyRelation.setText(String.format("1EUR = %s", value + "PLN"));
+                break;
+            }
+            case ("PLN"): {
+                String value = calculateAndFormat(rates.getDKK().toString(), 1.0);
+                currencyRelation.setText(String.format("1PLN = %s", value + "DKK"));
+                break;
+            }
         }
     }
 
