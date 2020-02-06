@@ -1,5 +1,6 @@
 package com.example.exchangecalculator;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
     Button butt1,butt2,butt3,butt4,butt5,butt6,butt7,butt8,butt9,butt0,butt00,buttDot,buttDel,buttClear,buttRefresh;
     List<Button> buttList = new ArrayList<>();
     List<EditText> editTextList = new ArrayList<>();
+    String base = "DKK";
     String currentNumber = "";
     ICurrencies currencies = new Currencies();
+    IRates rates = new Rates();
     private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     @Override
@@ -38,11 +42,9 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String defaultBase = "DKK";
         init();
-        requestCurrencies(defaultBase);
+        requestCurrencies(base);
         setFunctionality(buttList, editTextList);
-        firstCurrencyInput.requestFocus();
     }
 
     private void requestCurrencies(String mark) {
@@ -66,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
 }
     private void updateCurrencies(ICurrencies curr){
         this.currencies = curr;
+        this.rates = curr.getRates();
+        base = curr.getBase();
+        updateCurrencyRelation();
     }
 
     private void init() {
@@ -118,11 +123,23 @@ public class MainActivity extends AppCompatActivity {
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                String s = et.getText().toString();
-                int length = et.getText().toString().length();
-                if(hasFocus && length !=0)
-                currentNumber = s;
-                requestCurrencies(currencies.getBase());
+                switch (et.getId()){
+                    case(R.id.firstCurrencyInput):
+                        if(hasFocus && et.getText().length() != 0)
+                            currentNumber = firstCurrencyInput.getText().toString();
+                        requestCurrencies(firstCurrencyMark.getText().toString());
+                        break;
+                    case(R.id.secondCurrencyInput):
+                        if(hasFocus && et.getText().length() != 0)
+                            currentNumber = secondCurrencyInput.getText().toString();
+                        requestCurrencies(secondCurrencyMark.getText().toString());
+                        break;
+                    case(R.id.thirdCurrencyInput):
+                        if(hasFocus && et.getText().length() != 0)
+                            currentNumber = thirdCurrencyInput.getText().toString();
+                        requestCurrencies(thirdCurrencyMark.getText().toString());
+                        break;
+                }
                 et.setShowSoftInputOnFocus(false);
             }
         });
@@ -173,7 +190,8 @@ public class MainActivity extends AppCompatActivity {
                         if (currentNumber.length() > 0) currentNumber = currentNumber.substring(0, currentNumber.length() - 1);
                         break;
                     case (R.id.buttRefresh):
-
+                        requestCurrencies(base);
+                        showToast("Data refreshed: "+currencies.getDate());
                         break;
                     case (R.id.buttClear):
                         currentNumber = "";
@@ -186,6 +204,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             }});}
 
+    private void showToast(String msg) {
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    private void updateCurrencyRelation() {
+        if(base.equals("DKK")){
+            String value = calculateAndFormat(rates.getPLN().toString(),1.0);
+            currencyRelation.setText(String.format("1DKK = %s",value+"PLN"));
+        }
+        else if(base.equals(("EUR"))){
+            String value = calculateAndFormat(rates.getPLN().toString(),1.0);
+            currencyRelation.setText(String.format("1EUR = %s",value+"PLN"));
+        }
+        else if(base.equals(("PLN"))){
+            String value = calculateAndFormat(rates.getDKK().toString(),1.0);
+            currencyRelation.setText(String.format("1PLN = %s",value+"DKK"));
+        }
+    }
+
     private void clearInputs() {
         firstCurrencyInput.getText().clear();
         secondCurrencyInput.getText().clear();
@@ -197,46 +236,48 @@ public class MainActivity extends AppCompatActivity {
         EditText focused = findFocus();
         double firstCurrencyValue,secondCurrencyValue,thirdCurrencyValue;
         switch (focused.getId()) {
-            case (R.id.firstCurrencyInput):
-                secondCurrencyValue = currencies.getRates().getEUR();
-                thirdCurrencyValue = currencies.getRates().getPLN();
-                calculateCurrency(firstCurrencyInput,secondCurrencyInput,thirdCurrencyInput,
-                                    secondCurrencyValue,thirdCurrencyValue,currentNumber);
-                break;
+
             case (R.id.secondCurrencyInput):
-                firstCurrencyValue = currencies.getRates().getDKK();
-                thirdCurrencyValue = currencies.getRates().getPLN();
+                firstCurrencyValue = rates.getDKK();
+                thirdCurrencyValue = rates.getPLN();
                 calculateCurrency(secondCurrencyInput,firstCurrencyInput,thirdCurrencyInput,
                                     firstCurrencyValue,thirdCurrencyValue,currentNumber);
                 break;
+            case (R.id.firstCurrencyInput):
+                secondCurrencyValue = rates.getEUR();
+                thirdCurrencyValue = rates.getPLN();
+                calculateCurrency(firstCurrencyInput,secondCurrencyInput,thirdCurrencyInput,
+                        secondCurrencyValue,thirdCurrencyValue,currentNumber);
+                break;
             case (R.id.thirdCurrencyInput):
-                firstCurrencyValue = currencies.getRates().getDKK();
-                secondCurrencyValue = currencies.getRates().getEUR();
+                firstCurrencyValue = rates.getDKK();
+                secondCurrencyValue = rates.getEUR();
                 calculateCurrency(thirdCurrencyInput,firstCurrencyInput,secondCurrencyInput,
                                     firstCurrencyValue,secondCurrencyValue,currentNumber);
                 break;
         }
     }
 
-    private void calculateCurrency(EditText focusedInput,
+    private void calculateCurrency(EditText baseInput,
                                    EditText secondCurrencyInput,
                                    EditText thirdCurrencyInput,
                                    double secondCurrencyValue,
                                    double thirdCurrencyValue,
                                    String currentNumber){
         String output, output2;
-        focusedInput.setText(currentNumber);
+        baseInput.setText(currentNumber);
         output = calculateAndFormat(currentNumber,secondCurrencyValue);
         secondCurrencyInput.setText(output);
         output2 = calculateAndFormat(currentNumber,thirdCurrencyValue);
         thirdCurrencyInput.setText(output2);
+
+
     }
 
     private String calculateAndFormat(String currNumber, double currencyValue){
         double output = Double.parseDouble(currNumber) * currencyValue;
         return df2.format(output);
     }
-
 
 }
 
