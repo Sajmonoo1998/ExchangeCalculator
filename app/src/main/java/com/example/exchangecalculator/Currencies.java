@@ -2,7 +2,7 @@ package com.example.exchangecalculator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Currencies {
+public class Currencies implements ICurrencies {
 
     @SerializedName("rates")
     @Expose

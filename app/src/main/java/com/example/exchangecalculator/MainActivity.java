@@ -1,7 +1,5 @@
 package com.example.exchangecalculator;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,31 +8,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.Console;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     TextView currencyRelation,firstCurrencyMark,secondCurrencyMark,thirdCurrencyMark;
@@ -43,69 +30,41 @@ public class MainActivity extends AppCompatActivity {
     List<Button> buttList = new ArrayList<>();
     List<EditText> editTextList = new ArrayList<>();
     String currentNumber = "";
-    Currencies currencies;
+    ICurrencies currencies = new Currencies();
     private static DecimalFormat df2 = new DecimalFormat("#.##");
-    double firstCurrencyValue = 0;
-    double secondCurrencyValue = 0;
-    double thirdCurrencyValue = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String defaultBase = "DKK";
         init();
+        requestCurrencies(defaultBase);
         setFunctionality(buttList, editTextList);
-        requestCurrencies("DKK");
         firstCurrencyInput.requestFocus();
     }
-/*
-    private void requestCurrencies(String mark) {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://api.exchangeratesapi.io/latest?base="+mark;
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Gson gson = new Gson();
-                        Currencies currencies = gson.fromJson(response, Currencies.class);
-                        updateCurrencies(currencies);
-                        test(response);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Rest response", error.toString());
-            }
-        });
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-    }
 
-*/
-private void requestCurrencies(String mark) {
+    private void requestCurrencies(String mark) {
     RequestQueue queue = Volley.newRequestQueue(this);
     String url ="https://api.exchangeratesapi.io/latest?base="+mark;
-    // Request a string response from the provided URL.
     StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
             new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Gson gson = new Gson();
-                    Currencies currencies = gson.fromJson(response, Currencies.class);
+                    ICurrencies currencies = gson.fromJson(response, Currencies.class);
                     updateCurrencies(currencies);
-                    test(response);
                 }
             }, new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.e("Rest response", error.toString());
+                    Log.v("Error message: ", error.toString());
         }
     });
-    // Add the request to the RequestQueue.
     queue.add(stringRequest);
 }
-    private void updateCurrencies(Currencies curr){
+    private void updateCurrencies(ICurrencies curr){
         this.currencies = curr;
     }
 
@@ -114,12 +73,10 @@ private void requestCurrencies(String mark) {
         secondCurrencyMark = findViewById(R.id.secondCurrencyMark);
         thirdCurrencyMark = findViewById(R.id.thirdCurrencyMark);
         currencyRelation = findViewById(R.id.currencyRelation);
-        //
         firstCurrencyInput = findViewById(R.id.firstCurrencyInput);
         secondCurrencyInput = findViewById(R.id.secondCurrencyInput);
         thirdCurrencyInput = findViewById(R.id.thirdCurrencyInput);
         editTextList = Arrays.asList(firstCurrencyInput,secondCurrencyInput,thirdCurrencyInput);
-        //
         butt1 = findViewById(R.id.butt1);
         butt2 = findViewById(R.id.butt2);
         butt3 = findViewById(R.id.butt3);
@@ -135,59 +92,10 @@ private void requestCurrencies(String mark) {
         buttRefresh = findViewById(R.id.buttRefresh);
         buttClear = findViewById(R.id.buttClear);
         buttDot = findViewById(R.id.buttDot);
-        buttList = Arrays.asList(butt0,butt00,butt1,butt2,butt3,butt4,butt5,butt6,butt7,butt8,butt9,buttClear,buttDel,buttDot,buttRefresh);
+        buttList = Arrays.asList(butt0,butt00,butt1,butt2,butt3,butt4,butt5,butt6,butt7,
+                                    butt8,butt9,buttClear,buttDel,buttDot,buttRefresh);
     }
 
-    private void test (final String s) {
-        findViewById(R.id.buttRefresh).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Gson g = new Gson();
-                Currencies c = g.fromJson(s, Currencies.class);
-                String firstName = null;
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONObject r = jsonObject.getJSONObject("Rates");
-                     firstName = (String) r.get("EUR");
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-                Log.d("DKKK HERE - - ",c.getBase());
-                Log.v("KURA",c.getRates().getCHF().toString());
-            }
-        });
-    }
-    /*
-    public void testYourJSON(String genreJson){
-
-        JsonParser parser=new JsonParser();  //parser used to parse String to Correct Json format.
-
-        JsonElement obj_ComplexData = (JsonElement) parser.parse(genreJson); // Now Your String Converted to a JSONObject Type.
-
-        //person tag Array Data is fetched and Stored into a JSONArray Object.
-        JSONArray obj_arrayPersonData = (JSONArray) parser.parse(obj_ComplexData.get("person").toString());
-        J
-        for (Object person : obj_arrayPersonData ) { //Iterate through all Person Array.
-            System.out.println(person.get("name"));
-            System.out.println(person.get("city"));
-        }
-
-        //Select "updated" Tag Json Data.
-        JSONObject obj_Updated = (JSONObject) parser.parse(obj_ComplexData.get("updated").toString());
-
-        System.out.println(obj_Updated.get("time")); //display time tag.
-        System.out.println(obj_Updated.get("date")); //display date tag.
-
-
-        System.out.println(obj_Updated.get("error")); //display Your Error.
-
-    }
-
-     */
     private void setFunctionality(List<Button> ab, List<EditText> atv) {
         for(Button b: ab){
             setOperation(b);
@@ -205,33 +113,21 @@ private void requestCurrencies(String mark) {
         else
             return thirdCurrencyInput;
     }
+
     private void setFocusListeners(final EditText et){
         et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                switch (et.getId()){
-                    case(R.id.firstCurrencyInput):
-                        if(hasFocus && firstCurrencyInput.getText().length() != 0)
-                            currentNumber = firstCurrencyInput.getText().toString();
-                        requestCurrencies(firstCurrencyMark.getText().toString());
-                        break;
-                    case(R.id.secondCurrencyInput):
-                        if(hasFocus && secondCurrencyInput.getText().length() != 0)
-                            currentNumber = secondCurrencyInput.getText().toString();
-                        requestCurrencies(secondCurrencyMark.getText().toString());
-
-                        break;
-                    case(R.id.thirdCurrencyInput):
-                        if(hasFocus && thirdCurrencyInput.getText().length() != 0)
-                            currentNumber = thirdCurrencyInput.getText().toString();
-                        requestCurrencies(thirdCurrencyMark.getText().toString());
-                        break;
-                }
+                String s = et.getText().toString();
+                int length = et.getText().toString().length();
+                if(hasFocus && length !=0)
+                currentNumber = s;
+                requestCurrencies(currencies.getBase());
                 et.setShowSoftInputOnFocus(false);
-
             }
         });
     }
+
     private void setOperation(final Button b) {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,7 +173,7 @@ private void requestCurrencies(String mark) {
                         if (currentNumber.length() > 0) currentNumber = currentNumber.substring(0, currentNumber.length() - 1);
                         break;
                     case (R.id.buttRefresh):
-                        
+
                         break;
                     case (R.id.buttClear):
                         currentNumber = "";
@@ -299,49 +195,48 @@ private void requestCurrencies(String mark) {
 
     private void calculateCurrencies(String currentNumber) {
         EditText focused = findFocus();
-        String output, output2;
+        double firstCurrencyValue,secondCurrencyValue,thirdCurrencyValue;
         switch (focused.getId()) {
             case (R.id.firstCurrencyInput):
-                firstCurrencyInput.setText(currentNumber);
-                //Calculating second currency while we insert numbers for the first one
-                //secondCurrencyValue = 0.1337;
                 secondCurrencyValue = currencies.getRates().getEUR();
-                output = calculateAndFormat(currentNumber,secondCurrencyValue);
-                secondCurrencyInput.setText(output);
-                //Calculating third currency while we insert numbers for the first one
                 thirdCurrencyValue = currencies.getRates().getPLN();
-                output2 = calculateAndFormat(currentNumber,thirdCurrencyValue);
-                thirdCurrencyInput.setText(output2);
+                calculateCurrency(firstCurrencyInput,secondCurrencyInput,thirdCurrencyInput,
+                                    secondCurrencyValue,thirdCurrencyValue,currentNumber);
                 break;
-
             case (R.id.secondCurrencyInput):
-                secondCurrencyInput.setText(currentNumber);
-                firstCurrencyValue = currencies.getRates().getDKK();;
-                //Calculating first currency while we insert numbers for the second one
-                output = calculateAndFormat(currentNumber,firstCurrencyValue);
-                firstCurrencyInput.setText(output);
+                firstCurrencyValue = currencies.getRates().getDKK();
                 thirdCurrencyValue = currencies.getRates().getPLN();
-                //Calculating third currency while we insert numbers for the second one
-                output2 = calculateAndFormat(currentNumber,thirdCurrencyValue);
-                thirdCurrencyInput.setText(output2);
+                calculateCurrency(secondCurrencyInput,firstCurrencyInput,thirdCurrencyInput,
+                                    firstCurrencyValue,thirdCurrencyValue,currentNumber);
                 break;
             case (R.id.thirdCurrencyInput):
-                thirdCurrencyInput.setText(currentNumber);
-                firstCurrencyValue = currencies.getRates().getDKK();;
-                //Calculating third currency while we insert numbers for the first one
-                output = calculateAndFormat(currentNumber,firstCurrencyValue);
-                firstCurrencyInput.setText(output);
-                secondCurrencyValue = currencies.getRates().getEUR();;
-                //Calculating third currency while we insert numbers for the second one
-                output2 = calculateAndFormat(currentNumber,secondCurrencyValue);
-                secondCurrencyInput.setText(output2);
+                firstCurrencyValue = currencies.getRates().getDKK();
+                secondCurrencyValue = currencies.getRates().getEUR();
+                calculateCurrency(thirdCurrencyInput,firstCurrencyInput,secondCurrencyInput,
+                                    firstCurrencyValue,secondCurrencyValue,currentNumber);
                 break;
         }
     }
+
+    private void calculateCurrency(EditText focusedInput,
+                                   EditText secondCurrencyInput,
+                                   EditText thirdCurrencyInput,
+                                   double secondCurrencyValue,
+                                   double thirdCurrencyValue,
+                                   String currentNumber){
+        String output, output2;
+        focusedInput.setText(currentNumber);
+        output = calculateAndFormat(currentNumber,secondCurrencyValue);
+        secondCurrencyInput.setText(output);
+        output2 = calculateAndFormat(currentNumber,thirdCurrencyValue);
+        thirdCurrencyInput.setText(output2);
+    }
+
     private String calculateAndFormat(String currNumber, double currencyValue){
         double output = Double.parseDouble(currNumber) * currencyValue;
         return df2.format(output);
     }
+
 
 }
 
