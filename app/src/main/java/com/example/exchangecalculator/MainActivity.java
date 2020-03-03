@@ -243,17 +243,17 @@ public class MainActivity extends AppCompatActivity {
         double firstCurrencyValue,secondCurrencyValue,thirdCurrencyValue;
         switch (focused.getId()) {
 
-            case (R.id.secondCurrencyInput):
-                firstCurrencyValue = rates.getDKK();
-                thirdCurrencyValue = rates.getPLN();
-                calculateCurrency(secondCurrencyInput,firstCurrencyInput,thirdCurrencyInput,
-                                    firstCurrencyValue,thirdCurrencyValue,currentNumber);
-                break;
             case (R.id.firstCurrencyInput):
                 secondCurrencyValue = rates.getEUR();
                 thirdCurrencyValue = rates.getPLN();
                 calculateCurrency(firstCurrencyInput,secondCurrencyInput,thirdCurrencyInput,
                         secondCurrencyValue,thirdCurrencyValue,currentNumber);
+                break;
+            case (R.id.secondCurrencyInput):
+                firstCurrencyValue = rates.getDKK();
+                thirdCurrencyValue = rates.getPLN();
+                calculateCurrency(secondCurrencyInput,firstCurrencyInput,thirdCurrencyInput,
+                                    firstCurrencyValue,thirdCurrencyValue,currentNumber);
                 break;
             case (R.id.thirdCurrencyInput):
                 firstCurrencyValue = rates.getDKK();

@@ -250,19 +250,11 @@
                 android:text="PLN"
                 android:textSize="30sp" />
 
-            <ImageButton
-                android:id="@+id/thirdUnfold"
-                android:layout_width="49dp"
-                android:layout_height="78dp"
-                android:background="#FFFFFF"
-                app:srcCompat="@drawable/ic_expand_more_red_300_24dp"
-                tools:layout_editor_absoluteX="242dp"
-                tools:layout_editor_absoluteY="182dp" />
-
             <EditText
                 android:id="@+id/thirdCurrencyInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_weight="1"
                 android:cursorVisible="false"
                 android:ems="10"
@@ -301,17 +293,11 @@
             android:text="EUR"
             android:textSize="30sp" />
 
-        <ImageButton
-            android:id="@+id/secondUnfold"
-            android:layout_width="47dp"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            app:srcCompat="@drawable/ic_expand_more_red_300_24dp" />
-
         <EditText
             android:id="@+id/secondCurrencyInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_weight="0"
             android:cursorVisible="false"
             android:ems="10"
@@ -348,17 +334,11 @@
             android:text="DKK"
             android:textSize="30sp" />
 
-        <ImageButton
-            android:id="@+id/firstUnfold"
-            android:layout_width="47dp"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            app:srcCompat="@drawable/ic_expand_more_red_300_24dp" />
-
         <EditText
             android:id="@+id/firstCurrencyInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_weight="0"
             android:cursorVisible="false"
             android:ems="10"
@@ -373,6 +353,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
